@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# Herschrijf 'login' naar 'login.php'
+RewriteRule ^login$ login.php [L]
+
+# Herschrijf 'register' naar 'register.php'
+RewriteRule ^register$ register.php [L]
+
+# Herschrijf 'logout' naar 'logout.php'
+RewriteRule ^logout$ logout.php [L]
+
+# Beveilig het .htaccess bestand
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+# Redirect van HTTP naar HTTPS voor beveiliging
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Aangepaste foutpagina's (bijvoorbeeld voor 404)
+ErrorDocument 404 /404.php
+
+# Beperk toegang tot een specifieke directory (optioneel)
+# Vervang "/path/to/secure-directory" door het pad naar je beveiligde map
+# <Directory "/path/to/secure-directory">
+#     Order Deny,Allow
+#     Deny from all
+#     Allow from 123.456.789.000  # Vervang dit door het IP-adres van jezelf
+# </Directory>
